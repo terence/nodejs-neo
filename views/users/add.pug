@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+	h1.
+		User Add #{uri}
+	nav(aria-label='breadcrumb')
+		ol.breadcrumb
+			li.breadcrumb-item
+				a(href='#') Home
+			li.breadcrumb-item
+				a(href='/users/list') Users
+			li.breadcrumb-item.active(aria-current='page') Add
+
+	form#formAddFood(name="add-food" method="post" action="/users/add")
+		.form-group
+			label(for='foodName1') Food Name
+			input#foodName1.form-control(type='text', name="foodname", aria-describedby='emailHelp', placeholder='Enter Food name')
+			small#emailHelp.form-text.text-muted We'll never share your food with anyone else.
+		.form-group
+			label(for='foodPrice1') Food Price
+			input#foodPrice1.form-control(type='text', name="foodprice", aria-describedby='emailHelp', placeholder='Enter Food price')
+			small#emailHelp.form-text.text-muted We'll never share your price with anyone else.
+		.form-group
+			label(for='foodPop1') Food Popularity
+			input#foodPop1.form-control(type='text', name="foodpop", aria-describedby='emailHelp', placeholder='Enter Food name')
+			small#emailHelp.form-text.text-muted We'll never share your popularity with anyone else.
+		.form-group.form-check
+			input#exampleCheck1.form-check-input(type='checkbox')
+			label.form-check-label(for='exampleCheck1') Check me out
+		button.btn.btn-primary(type='submit') Submit
+
+

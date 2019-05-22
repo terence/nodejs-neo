@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+	nav(aria-label='breadcrumb')
+		ol.breadcrumb
+			li.breadcrumb-item
+				a(href='#') Home
+			li.breadcrumb-item.active(aria-current='page') All Food
+
+	a.btn.btn-primary.btn-xs(href='/foods/add', role='button') Add
+	a.btn.btn-primary.btn-xs(href='/foods/listapi', role='button') List API
+	br
+	ul.list-group
+		each blob, i in blobs
+			li.list-group-item(href="/foods/read?uri="+blob.uri)
+				p
+					= blob.uri
+					br
+					= blob.content.price
+					br
+					= blob.content.popularity
+				p
+					a(href="/foods/read?uri="+blob.uri) Show
+					a(href='/foods/edit?uri='+blob.uri) Edit
+					a(href="/foods/delete?uri="+blob.uri) Delete
+	br
+	nav(aria-label='Page navigation example')
+		ul.pagination
+			li.page-item
+				a.page-link(href='#') Previous
+			li.page-item
+				a.page-link(href='#') 1
+			li.page-item
+				a.page-link(href='#') 2
+			li.page-item
+				a.page-link(href='#') 3
+			li.page-item
+				a.page-link(href='#') Next
+
+
