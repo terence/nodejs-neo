@@ -5,24 +5,24 @@ block content
 		ol.breadcrumb
 			li.breadcrumb-item
 				a(href='#') Home
-			li.breadcrumb-item.active(aria-current='page') All Food
+			li.breadcrumb-item.active(aria-current='page') All Users
 
-	a.btn.btn-primary.btn-xs(href='/foods/add', role='button') Add
-	a.btn.btn-primary.btn-xs(href='/foods/listapi', role='button') List API
+	a.btn.btn-primary.btn-xs(href='/users/add', role='button') Add
+	a.btn.btn-primary.btn-xs(href='/users/listapi', role='button') List API
 	br
 	ul.list-group
-		each blob, i in blobs
-			li.list-group-item(href="/foods/read?uri="+blob.uri)
+		each person, i in people
+			li.list-group-item(href="/users/read?id="+person.id)
 				p
-					= blob.uri
+					= person.id
 					br
-					= blob.content.price
+					= person.name
 					br
-					= blob.content.popularity
+					= person.born
 				p
-					a(href="/foods/read?uri="+blob.uri) Show
-					a(href='/foods/edit?uri='+blob.uri) Edit
-					a(href="/foods/delete?uri="+blob.uri) Delete
+					a(href="/users/read?uri="+person.id) Show
+					a(href='/users/edit?uri='+person.id) Edit
+					a(href="/users/delete?uri="+person.id) Delete
 	br
 	nav(aria-label='Page navigation example')
 		ul.pagination

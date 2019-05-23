@@ -13,48 +13,34 @@ router.get('/', function(req, res, next) {
 
 /* ===============================================================
  * USER: Add
- * - 2 functions - add, post
+ * - 2 functions - get, post
  * */
 router.get('/add', function(req, res, next) {
-//  res.send('foods index');
+//  res.send('Users index');
   res.render('users/add', {
-    title: 'Food glorious food'
+    title: 'Add Users'
   });
 });
 
 
 
 router.post('/add', function(req, res, next) {
-  var db = req.db;
-  var foodName = req.body.foodname;
-  var foodPrice = req.body.foodprice;
-  var foodPop = req.body.foodpop;
+  var session = req.session;
+  var userName = req.body.username;
+  var userYear = req.body.useryear;
 
-  db.documents.write({
-    uri: '/menu/entree/' + foodName + '.json',
-    collections: ['entree'],
-    contentType: 'application/json',
-    content: {
-      name: foodName,
-      popularity: foodPop,
-      price: foodPrice
-    }
-  }).result(
-    function(response) {
-      console.log('Loaded the following documents:');
-      response.documents.forEach( function(document) {
-        console.log(' ' + document.uri);
-      });
-      res.redirect('/users/read?uri=' + response.documents[0].uri)
+	session
+		.run('CREATE(n:Person {name:{nameParam}, born:{yearParam}}) RETURN n.title', {nameParam:userName, yearParam:userYear})
+		.then(function(result){
+			res.redirect('/users/list');
+			session.close();
+		})
+		.catch(function(err){
+			console.log(err);
+		});
 
-    },
-    function(error) {
-      console.log('error here');
-      console.log(JSON.stringify(error, null, 2));
-    }
-  );
 
-  console.log(req.body.name);
+  console.log(req.body.username);
 
 //  res.redirect('/users/add');
 //  res.redirect('/users/read?uri' +  document.uri);
@@ -62,39 +48,73 @@ router.post('/add', function(req, res, next) {
 });
 
 
-
-
-/* ===============================================================
- * USER: List
- *
+/* =========================================
+ * USER: Read Single Record
  *
  */
-router.get('/list', function(req, res, next) {
-  var session = req.session;
-  var q = req.q;
 
-  db.documents.query(
-    q.where(
-      q.collection('entree')
-    )
-//    .orderBy(
-//      q.sort('uri')
-//    )
-//    .slice(0,5)
-  ).
-  result(function(records){
-    //res.json(records);
-    console.log(records)
-    res.render('users/list', {
-      title: 'All my Food',
-      "blobs" : records
-    });
-  });
+router.get('/read', function (req, res, next) {
+  var session = req.session;
+	var id = req.query.id
+
+//  var uri = ['/gs/bluebird.json']
+  console.log(req.query.id);
+//  console.log(req.params);
+	session
+		.run('MATCH(n:Person) WHERE id(n) = '+ id +' RETURN n')
+		.then(function(result){
+			var Person
+			console.log(result.records[0]._fields[0].properties.name);
+			console.log(result.records[0]._fields[0].properties.born);
+			res.render('users/read', {
+				title: 'A User',
+				id: result.records[0]._fields[0].identity.low,
+				name: result.records[0]._fields[0].properties.name,
+				year: result.records[0]._fields[0].properties.born
+			});
+		})
+		.catch(function(err){
+			console.log(err)
+		});
+
 });
 
 
 
 
+
+
+/* ===============================================================
+ * USER: List
+ *
+ */
+router.get('/list', function(req, res, next) {
+  var session = req.session;
+  session
+		.run('MATCH(n:Person) RETURN n LIMIT 25')
+		.then(function(result){
+			var PersonArr = [];
+			result.records.forEach(function(record){
+				PersonArr.push({
+					id: record._fields[0].identity.low,
+					name: record._fields[0].properties.name,
+					born: record._fields[0].properties.born.low
+				});		
+				console.log(record._fields[0].properties.name);
+				console.log(record._fields[0].properties.born.low);
+				console.log(record._fields[0].identity.low);
+			});
+			res.render('users/list', {
+				title: 'All My Users',
+				people: PersonArr
+			});
+		})
+		.catch(function(err){
+			console.log(err);
+		});
+  console.log ('User List renders');
+
+});
 
 
 module.exports = router;

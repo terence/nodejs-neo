@@ -7,22 +7,18 @@ block content
 			li.breadcrumb-item
 				a(href='/') Home
 			li.breadcrumb-item
-				a(href='/foods/list') Food
+				a(href='/users/list') Users
 			li.breadcrumb-item View
 			li.breadcrumb-item.active(aria-current='page') #{uri}
 
-	a.btn.btn-primary.btn-xs(href='/foods/edit?uri='+uri, role='button') Edit
+	a.btn.btn-primary.btn-xs(href='/users/edit?id='+id, role='button') Edit
 
 	.form-group.row
-		label.col-sm-2.col-form-label(for='foodName') Food Name
+		label.col-sm-2.col-form-label(for='userName') User Name
 	.col-sm-10
 		input#staticEmail.form-control-plaintext(type='text', readonly='', value=name)
 	.form-group.row
-		label.col-sm-2.col-form-label(for='foodPrice') Food Price
+		label.col-sm-2.col-form-label(for='userYear') User Year
 	.col-sm-10
-		input#staticEmail.form-control-plaintext(type='text', readonly='', value=price)
-	.form-group.row
-		label.col-sm-2.col-form-label(for='foodPop') Food Popularity
-	.col-sm-10
-		input#staticEmail.form-control-plaintext(type='text', readonly='', value=popularity)
+		input#staticEmail.form-control-plaintext(type='text', readonly='', value=year)
 

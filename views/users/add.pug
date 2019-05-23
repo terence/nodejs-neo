@@ -13,20 +13,16 @@ block content
 
 	form#formAddFood(name="add-food" method="post" action="/users/add")
 		.form-group
-			label(for='foodName1') Food Name
-			input#foodName1.form-control(type='text', name="foodname", aria-describedby='emailHelp', placeholder='Enter Food name')
-			small#emailHelp.form-text.text-muted We'll never share your food with anyone else.
+			label(for='UserName1') User Name
+			input#UserName1.form-control(type='text', name="username", aria-describedby='emailHelp', placeholder='Enter User name')
+			small#emailHelp.form-text.text-muted We'll never share your name with anyone else.
 		.form-group
-			label(for='foodPrice1') Food Price
-			input#foodPrice1.form-control(type='text', name="foodprice", aria-describedby='emailHelp', placeholder='Enter Food price')
-			small#emailHelp.form-text.text-muted We'll never share your price with anyone else.
-		.form-group
-			label(for='foodPop1') Food Popularity
-			input#foodPop1.form-control(type='text', name="foodpop", aria-describedby='emailHelp', placeholder='Enter Food name')
-			small#emailHelp.form-text.text-muted We'll never share your popularity with anyone else.
+			label(for='UserYear1') User Born
+			input#UserYear1.form-control(type='text', name="useryear", aria-describedby='emailHelp', placeholder='Enter User birth year')
+			small#emailHelp.form-text.text-muted We'll never share your birth details with anyone else.
 		.form-group.form-check
 			input#exampleCheck1.form-check-input(type='checkbox')
 			label.form-check-label(for='exampleCheck1') Check me out
-		button.btn.btn-primary(type='submit') Submit
+		button.btn.btn-primary(type='submit') Add
 
 
