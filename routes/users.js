@@ -48,7 +48,7 @@ router.post('/add', function(req, res, next) {
 });
 
 
-/* =========================================
+/*
  * USER: Read Single Record
  *
  */
@@ -84,7 +84,7 @@ router.get('/read', function (req, res, next) {
 
 
 
-/* ===============================================================
+/*
  * USER: List
  *
  */

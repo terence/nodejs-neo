@@ -40,8 +40,12 @@ app.use(function(req, res, next){
 // EXPRESS: Routers
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var graphRouter = require('./routes/graph');
+var sigmaRouter = require('./routes/sigma');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/graph', graphRouter);
+app.use('/sigma', sigmaRouter);
 
 
 // catch 404 and forward to error handler
